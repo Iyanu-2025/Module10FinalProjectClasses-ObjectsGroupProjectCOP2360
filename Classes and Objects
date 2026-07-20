@@ -1,0 +1,205 @@
+using System;
+
+namespace FinalProject
+{
+    public class Contractor
+    {
+        // Private Fields
+        private string contractorName;
+        private int contractorNumber;
+        private DateTime startDate;
+
+        // Default Constructor
+        public Contractor()
+        {
+            contractorName = "";
+            contractorNumber = 0;
+            startDate = DateTime.Now;
+        }
+
+        // Constructor with Parameters
+        public Contractor(string name, int number, DateTime date)
+        {
+            contractorName = name;
+            contractorNumber = number;
+            startDate = date;
+        }
+
+        // Accessor and Mutator Methods
+        public string GetName()
+        {
+            return contractorName;
+        }
+
+        public void SetName(string name)
+        {
+            contractorName = name;
+        }
+
+        public int GetContractorNumber()
+        {
+            return contractorNumber;
+        }
+
+        public void SetContractorNumber(int number)
+        {
+            contractorNumber = number;
+        }
+
+        public DateTime GetStartDate()
+        {
+            return startDate;
+        }
+
+        public void SetStartDate(DateTime date)
+        {
+            startDate = date;
+        }
+    }
+}
+
+
+using System;
+
+namespace FinalProject
+{
+    public class Subcontractor : Contractor
+    {
+        // Private Fields
+        private int shift;
+        private double hourlyPayRate;
+
+        // Default Constructor
+        public Subcontractor() : base()
+        {
+            shift = 1;
+            hourlyPayRate = 0;
+        }
+
+        // Constructor with Parameters
+        public Subcontractor(string name, int number, DateTime startDate,
+                             int shift, double payRate)
+            : base(name, number, startDate)
+        {
+            this.shift = shift;
+            hourlyPayRate = payRate;
+        }
+
+        // Accessors and Mutators
+        public int GetShift()
+        {
+            return shift;
+        }
+
+        public void SetShift(int shift)
+        {
+            this.shift = shift;
+        }
+
+        public double GetHourlyPayRate()
+        {
+            return hourlyPayRate;
+        }
+
+        public void SetHourlyPayRate(double rate)
+        {
+            hourlyPayRate = rate;
+        }
+
+        // Returns float as required
+        public float ComputePay(float hoursWorked)
+        {
+            float pay = (float)(hoursWorked * hourlyPayRate);
+
+            if (shift == 2)
+            {
+                pay *= 1.03f; // 3% night shift differential
+            }
+
+            return pay;
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+
+namespace FinalProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Subcontractor> subcontractors = new List<Subcontractor>();
+
+            string answer = "Y";
+
+            while (answer.ToUpper() == "Y")
+            {
+                Console.WriteLine("Enter Contractor Name:");
+                string name = Console.ReadLine();
+
+                Console.WriteLine("Enter Contractor Number:");
+                int number = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Start Date (MM/DD/YYYY):");
+                DateTime startDate = DateTime.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Shift (1 = Day, 2 = Night):");
+                int shift = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Hourly Pay Rate:");
+                double rate = double.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Hours Worked:");
+                float hours = float.Parse(Console.ReadLine());
+
+                Subcontractor worker = new Subcontractor(
+                    name,
+                    number,
+                    startDate,
+                    shift,
+                    rate);
+
+                subcontractors.Add(worker);
+
+                Console.WriteLine();
+                Console.WriteLine("Employee Information");
+                Console.WriteLine("------------------------------");
+                Console.WriteLine("Name: " + worker.GetName());
+                Console.WriteLine("Contractor Number: " + worker.GetContractorNumber());
+                Console.WriteLine("Start Date: " + worker.GetStartDate().ToShortDateString());
+                Console.WriteLine("Shift: " + (worker.GetShift() == 1 ? "Day" : "Night"));
+                Console.WriteLine("Hourly Rate: $" + worker.GetHourlyPayRate());
+
+                float totalPay = worker.ComputePay(hours);
+
+                Console.WriteLine("Gross Pay: $" + totalPay.ToString("F2"));
+                Console.WriteLine();
+
+                Console.Write("Would you like to add another subcontractor? (Y/N): ");
+                answer = Console.ReadLine();
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("Summary");
+            Console.WriteLine("--------------------------------------");
+
+            foreach (Subcontractor employee in subcontractors)
+            {
+                Console.WriteLine(
+                    employee.GetName() +
+                    " | Contractor #: " +
+                    employee.GetContractorNumber() +
+                    " | Shift: " +
+                    (employee.GetShift() == 1 ? "Day" : "Night"));
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+    }
+}
