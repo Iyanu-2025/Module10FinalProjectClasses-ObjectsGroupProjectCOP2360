@@ -58,3 +58,66 @@ namespace FinalProject
         }
     }
 }
+
+
+namespace FinalProject
+{
+    public class Subcontractor : Contractor
+    {
+        //Private Fields
+        private int shift;
+        private double hourlyPayRate;
+
+        //Default Constructor
+        public Subcontractor() : Base()
+        {
+            shift = 1;
+            hourlyPayRate = 0;
+        }
+        
+        // Constructor with Parameters
+        public Subcontractor(string name, int number, DateTime startDate,
+                             int shift, double payRate)
+            : base(name, number, startDate)
+        {
+            this.shift = shift;
+            hourlyPayRate = payRate;
+        }
+
+        // Accessors and Mutators
+        public int GetShift()
+        {
+            return shift;
+        }
+
+        public void SetShift(int shift)
+        {
+            this.shift = shift;
+        }
+
+        public double GetHourlyPayRate()
+        {
+            return hourlyPayRate;
+        }
+
+        public void SetHourlyPayRate(double rate)
+        {
+            hourlyPayRate = rate;
+        }
+
+        // Returns float as required
+        public float ComputePay(float hoursWorked)
+        {
+            float pay = (float)(hoursWorked * hourlyPayRate);
+
+            if (shift == 2)
+            {
+                // 3% Night Shift Differential
+                pay *= 1.03f; 
+            }
+
+            return pay;
+        }
+    }
+}
+
