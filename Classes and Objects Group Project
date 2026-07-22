@@ -1,1 +1,60 @@
+using System;
+using System.Collections.Generic;
 
+namespace FinalProject
+{
+    public class Contractor
+    {
+        // Private Fields
+        private string contractorName;
+        private int contractorNumber;
+        private DateTime startDate;
+
+        // Default Constructor
+        public Contractor()
+        {
+            contractorName = "";
+            contractorNumber = 0;
+            startDate = DateTime.Now;
+        }
+
+        // Constructor with Parameters
+        public Contractor(string name, int number, DateTime date)
+        {
+            contractorName = name;
+            contractorNumber = number;
+            startDate = date;
+        }
+
+        // Accessor and Mutator Methods
+        public string GetName()
+        {
+            return contractorName;
+        }
+
+        public void SetName(string name)
+        {
+            contractorName = name;
+        }
+
+        public int GetContractorNumber()
+        {
+            return contractorNumber;
+        }
+
+        public void SetContractorNumber(int number)
+        {
+            contractorNumber = number;
+        }
+
+        public DateTime GetStartDate()
+        {
+            return startDate;
+        }
+
+        public void SetStartDate(DateTime date)
+        {
+            startDate = date;
+        }
+    }
+}
