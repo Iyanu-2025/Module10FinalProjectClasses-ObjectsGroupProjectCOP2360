@@ -121,3 +121,32 @@ namespace FinalProject
     }
 }
 
+namespace FinalProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Subcontractor> subcontractors = new List<Subcontractor>();
+
+            string answer = "Y";
+
+            while (answer.ToUpper() == "Y")
+            {
+                Console.WriteLine("Enter Contractor Name:");
+                string name = Console.ReadLine();
+
+                Console.WriteLine("Enter Contractor Number:");
+                int number = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Start Date (MM/DD/YYYY):");
+                DateTime startDate = DateTime.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Shift (1 = Day, 2 = Night):");
+                int shift = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Hourly Pay Rate:");
+                double rate = double.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Hours Worked:");
+                float hours = float.Parse(Console.ReadLine());
